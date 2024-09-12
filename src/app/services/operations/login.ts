@@ -14,7 +14,7 @@ export class ProjetService {
   constructor(private http:HttpClient) { }
 
   public Login(loginRequest: any): Observable<any> {
-    return this.http.post<UserDto>(`${this.apiUrl}/Auth/login`, loginRequest, { responseType: 'text' as 'json' });
+    return this.http.post<UserDto>(`${this.apiUrl}/Auth/login`, loginRequest);
   }
 
 

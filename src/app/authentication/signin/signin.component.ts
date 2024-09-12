@@ -4,6 +4,7 @@ import {UserDto} from "../../services/models/user-dto";
 import {ProjetService} from "../../services/operations/login";
 import {Router} from "@angular/router";
 import {TokenService} from "../../services/token/token.service";
+import {AuthResponse} from "../../services/models/auth-response";
 
 @Component({
   selector: 'app-signin',
@@ -13,7 +14,6 @@ import {TokenService} from "../../services/token/token.service";
 export class SigninComponent implements OnInit {
   loginForm!: FormGroup;
   hidePassword = true;
-  authRequirest: UserDto = {username: '',password: ''};
   errorMsg: Array<string> = [];
 
   constructor(
@@ -34,12 +34,11 @@ export class SigninComponent implements OnInit {
   onSubmit() {
     if (this.loginForm.valid) {
       this.errorMsg = [];
+      console.log(this.loginForm.value)
       this.authentication.Login(this.loginForm.value).subscribe(
-        (data) => {
-          if (data) {
-            this.tokenService.token = data.body.token as string;
+        (data: AuthResponse) => {
+            this.tokenService.token = data.token as string;
             console.log('Login successful:', data);
-          }
         },
         (error) => {
           const errorMsg = error.error?.message || 'Login failed. Please try again.';
