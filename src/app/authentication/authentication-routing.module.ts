@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {Routes} from "@angular/router";
+import { RouterModule, Routes } from '@angular/router';
 import {SigninComponent} from "./signin/signin.component";
 import {SignupComponent} from "./signup/signup.component";
 
-
 const routes: Routes = [
   {
-    path: 'Login',
+    path: '',
     component: SigninComponent
   },{
     path: 'Register',
@@ -16,9 +14,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AuthenticationRoutingModule { }

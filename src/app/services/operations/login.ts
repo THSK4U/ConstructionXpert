@@ -13,8 +13,8 @@ export class ProjetService {
 
   constructor(private http:HttpClient) { }
 
-  public Login(projet: UserDto): Observable<UserDto> {
-    return this.http.post<UserDto>(`${this.apiUrl}/Auth/loginv`, projet, { responseType: 'text' as 'json' });
+  public Login(loginRequest: any): Observable<any> {
+    return this.http.post<UserDto>(`${this.apiUrl}/Auth/login`, loginRequest);
   }
 
 
