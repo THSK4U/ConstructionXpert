@@ -14,13 +14,15 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
 import { MatButtonModule } from '@angular/material/button';
 import {HttpClientModule} from "@angular/common/http";
+import { ManagementComponent } from './management/management.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthenticationComponent,
     SignupComponent,
-    SigninComponent
+    SigninComponent,
+    ManagementComponent
   ],
   imports: [
     BrowserModule,
