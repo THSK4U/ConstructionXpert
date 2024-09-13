@@ -1,0 +1,25 @@
+<div class="task-list-container">
+  <h2 class="title">Liste des Projets</h2>
+
+  <div class="task-table">
+    <div class="task-header">
+      <div class="header-item">Nom du Projet</div>
+      <div class="header-item">Date d'Échéance</div>
+      <div class="header-item">Description</div>
+      <div class="header-item">Actions</div>
+    </div>
+    <div class="task-row" *ngFor="let project of projects">
+      <div class="row-item">{{ project.nom?.toUpperCase() }}</div>
+      <div class="row-item">{{ project.dateFin | date }}</div>
+      <div class="row-item">{{ project.description }}</div>
+      <div class="row-item">
+        <button mat-button color="primary" (click)="editProject(project)">
+          <mat-icon>edit_not</mat-icon> Modifier
+        </button>
+        <button mat-button color="warn" (click)="deleteProject(project)">
+          <mat-icon>delete_forever</mat-icon> Supprimer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

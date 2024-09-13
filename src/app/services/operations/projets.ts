@@ -14,7 +14,7 @@ export class ProjetService {
   constructor(private http:HttpClient) { }
 
   public getProjets (): Observable<ProjetsDto[]>{
-    return this.http.get<ProjetsDto[]>(`${this.apiUrl}/projets/`);
+    return this.http.get<ProjetsDto[]>(`${this.apiUrl}/Projets`);
   }
 
   public addProjet(projet: ProjetsDto): Observable<ProjetsDto> {
@@ -30,6 +30,6 @@ export class ProjetService {
   }
 
   public deleteProjet(idProjet: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/projets/delete/${idProjet}`);
+    return this.http.delete<void>(`${this.apiUrl}/Projets/Delete/${idProjet}`);
   }
 }
