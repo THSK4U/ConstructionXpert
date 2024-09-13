@@ -10,7 +10,7 @@ import {UserDto} from "../../services/models/user-dto";
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent {
   registerForm: FormGroup;
   hidePassword = true;
   hideConfirmPassword = true;
@@ -27,8 +27,6 @@ export class SignupComponent implements OnInit {
     }, { validator: this.checkPasswords });
   }
 
-  ngOnInit(): void {
-  }
 
   checkPasswords(group: FormGroup) {
     const password = group.get('password')?.value;
@@ -38,7 +36,6 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     if (this.registerForm.valid) {
-      console.log('Formulaire d\'inscription soumis', this.registerForm.value);
       this.service.register(this.registerForm.value).subscribe(
         (data: UserDto) => {
           console.log('Login successful:', data);
