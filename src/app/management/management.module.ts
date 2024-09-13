@@ -6,11 +6,13 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {BrowserModule} from "@angular/platform-browser";
 import {AppComponent} from "../app.component";
 import {MatIconModule} from "@angular/material/icon";
+import { TaskComponent } from './task/task.component';
 
 
 @NgModule({
   declarations: [
-    ProjectComponent
+    ProjectComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,
