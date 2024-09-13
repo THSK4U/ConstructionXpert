@@ -39,6 +39,7 @@ export class SigninComponent implements OnInit {
         (data: AuthResponse) => {
             this.tokenService.token = data.token as string;
             console.log('Login successful:', data);
+            this.router.navigate(['/project']);
         },
         (error) => {
           const errorMsg = error.error?.message || 'Login failed. Please try again.';

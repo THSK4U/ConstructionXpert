@@ -13,14 +13,21 @@ import {MatInputModule} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatCardModule} from "@angular/material/card";
 import { MatButtonModule } from '@angular/material/button';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
+import { ManagementComponent } from './management/management.component';
+import {ManagementModule} from "./management/management.module";
+import {AuthInterceptor} from "./auth-interceptor.interceptor";
+import { NavbarComponent } from './navbar/navbar.component';
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthenticationComponent,
     SignupComponent,
-    SigninComponent
+    SigninComponent,
+    ManagementComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -32,9 +39,15 @@ import {HttpClientModule} from "@angular/common/http";
     ReactiveFormsModule,
     MatCardModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    ManagementModule,
+    MatToolbarModule,
   ],
-  providers: [],
+  providers: [
+    HttpClient,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

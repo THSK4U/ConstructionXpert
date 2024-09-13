@@ -29,6 +29,6 @@ export class TokenService {
 
   logout(): void {
     localStorage.removeItem('jwt');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 }
