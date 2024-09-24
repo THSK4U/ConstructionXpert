@@ -1,7 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, computed, OnInit, signal} from '@angular/core';
 import {Router} from "@angular/router";
 import {ProjetService} from "../../services/operations/projets";
 import {ProjetsDto} from "../../services/models/projets-dto";
+import {FormAjouterComponent} from "./form-ajouter/form-ajouter.component";
+import {FormBuilder} from "@angular/forms";
+import {MatDialog} from "@angular/material/dialog";
+import {single} from "rxjs";
 
 @Component({
   selector: 'app-project',
@@ -13,9 +17,15 @@ export class ProjectComponent implements OnInit{
   projects: ProjetsDto[]=[];
   constructor(
     private Service : ProjetService,
+    private dialog: MatDialog,
+    private fb: FormBuilder
   ) {
   }
   ngOnInit(): void {
+    this.getAll();
+  }
+
+  getAll(){
     this.Service.getProjets().subscribe(
       (data: ProjetsDto[]) => {
         this.projects = data;
@@ -26,7 +36,6 @@ export class ProjectComponent implements OnInit{
       }
     );
   }
-
 
   editProject(project: ProjetsDto) {
 
@@ -45,4 +54,27 @@ export class ProjectComponent implements OnInit{
       );
     }
   }
+
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(FormAjouterComponent, {
+      width: '250px',
+    });
+
+  }
+
+  searchText!: '';
+
+  filteredProjects() {
+      if (!this.searchText) {
+          return this.projects;
+      } else {
+        return this.projects.filter(projet =>
+          projet.nom?.toLowerCase().includes(this.searchText.toLowerCase()) ||
+          projet.description?.toLowerCase().includes(this.searchText.toLowerCase())
+        );
+      }
+
+}
+
 }

@@ -1,23 +1,31 @@
 <div class="task-list-container">
   <h2 class="title">Liste des Projets</h2>
-
+    <div class="bar">
+  <input type="text" [(ngModel)]="searchText" placeholder="Rechercher un projet" class="search-input">
+  <button mat-button color="primary" (click)="openDialog()">
+    <mat-icon>add</mat-icon> Ajouter un Projet </button>
+</div>
   <div class="task-table">
     <div class="task-header">
       <div class="header-item">Nom du Projet</div>
-      <div class="header-item">Date d'Échéance</div>
       <div class="header-item">Description</div>
+      <div class="header-item">Date de Début</div>
+      <div class="header-item">Date d'Échéance</div>
+      <div class="header-item">Budget</div>
       <div class="header-item">Actions</div>
     </div>
-    <div class="task-row" *ngFor="let project of projects">
+    <div class="task-row" *ngFor="let project of filteredProjects()">
       <div class="row-item">{{ project.nom?.toUpperCase() }}</div>
-      <div class="row-item">{{ project.dateFin | date }}</div>
-      <div class="row-item">{{ project.description }}</div>
+      <div class="row-item description">{{ project.description }}</div>
+      <div class="row-item">{{ project.dateDebut | date:'dd/MM/yyyy' }}</div>
+      <div class="row-item">{{ project.dateFin | date:'dd/MM/yyyy' }}</div>
+      <div class="row-item">{{ project.budget | currency:'EUR':'symbol':'1.2-2' }}</div>
       <div class="row-item">
         <button mat-button color="primary" (click)="editProject(project)">
-          <mat-icon>edit_not</mat-icon> Modifier
+          <mat-icon>edit_not</mat-icon>
         </button>
         <button mat-button color="warn" (click)="deleteProject(project)">
-          <mat-icon>delete_forever</mat-icon> Supprimer
+          <mat-icon>delete_forever</mat-icon>
         </button>
       </div>
     </div>
