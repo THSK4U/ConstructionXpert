@@ -9,13 +9,12 @@ import {ProjetsDto} from "../models/projets-dto";
 export class SortService {
 
 
-  private apiUrl = 'http://localhost:8200';
+  private apiUrl = 'http://localhost:8200/Projets';
 
   constructor(private http:HttpClient) { }
 
   public sort(field: string, direction: string): Observable<ProjetsDto[]> {
     return this.http.get<ProjetsDto[]>(`${this.apiUrl}/sort/${field}/${direction}`);
   }
-
 
 }
