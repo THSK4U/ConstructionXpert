@@ -10,6 +10,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatDialogModule} from "@angular/material/dialog";
 import {FormsModule} from "@angular/forms";
 import { FormAjouterComponent } from './project/form-ajouter/form-ajouter.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { FormAjouterComponent } from './project/form-ajouter/form-ajouter.compon
     MatIconModule,
     MatInputModule,
     MatDialogModule,
-    FormsModule
+    FormsModule,
+    MatPaginatorModule
   ],
   exports: [
     ProjectComponent
