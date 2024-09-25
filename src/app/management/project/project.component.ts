@@ -6,6 +6,9 @@ import {FormAjouterComponent} from "./form-ajouter/form-ajouter.component";
 import {FormBuilder} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {single} from "rxjs";
+import {SortService} from "../../services/operations/Sort";
+import {PaginationService} from "../../services/operations/Pagination";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-project',
@@ -14,27 +17,56 @@ import {single} from "rxjs";
 })
 export class ProjectComponent implements OnInit{
 
+  currentSortField: string = 'id';
+  currentSortDirection: string = 'asc';
   projects: ProjetsDto[]=[];
+  totalProjects: number = 0;
+  pageSize: number = 5;
+  currentPage: number = 0;
+
+
   constructor(
     private Service : ProjetService,
     private dialog: MatDialog,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private sortService: SortService,
+    private pagService: PaginationService,
   ) {
   }
+
   ngOnInit(): void {
-    this.getAll();
+    this.getSortedProjets('id', 'asc');
+    this.getPaginatedProjects(this.currentPage, this.pageSize);
   }
 
-  getAll(){
-    this.Service.getProjets().subscribe(
+  getSortedProjets(field: string, direction: string): void {
+    this.sortService.sort(field, direction).subscribe(
       (data: ProjetsDto[]) => {
         this.projects = data;
-        console.log(this.projects)
+        console.log(this.projects);
       },
       (error) => {
-        console.log('Error fetching projets', error);
+        console.log('Error fetching sorted projects', error);
       }
     );
+  }
+
+  getPaginatedProjects(page: number, size: number): void {
+    this.pagService.pagination(page, size).subscribe(
+      (data: ProjetsDto[]) => {
+        this.projects = data;
+        this.totalProjects = data.length;
+      },
+      (error) => {
+        console.log('Error fetching paginated projects', error);
+      }
+    );
+  }
+
+  onPageChange(event: PageEvent): void {
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.getPaginatedProjects(this.currentPage, this.pageSize);
   }
 
   editProject(project: ProjetsDto) {
@@ -77,4 +109,15 @@ export class ProjectComponent implements OnInit{
 
 }
 
+  sort(field: string) {
+    if (this.currentSortField === field) {
+      this.currentSortDirection = this.currentSortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.currentSortField = field;
+      this.currentSortDirection = 'asc';
+    }
+
+    this.getSortedProjets(this.currentSortField, this.currentSortDirection);
+
+  }
 }
