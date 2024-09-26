@@ -39,10 +39,22 @@ export class ProjectComponent implements OnInit{
     this.getPaginatedProjects(this.currentPage, this.pageSize);
   }
 
+  getProjets(): void {
+      this.Service.getProjets().subscribe(
+          (data: ProjetsDto[]) => {
+            this.totalProjects = data.length;
+          },
+          (error) => {
+              console.log('Error fetching projects', error);
+          }
+      );
+  }
+
   getSortedProjets(field: string, direction: string): void {
     this.sortService.sort(field, direction).subscribe(
       (data: ProjetsDto[]) => {
         this.projects = data;
+        this.totalProjects = data.length;
         console.log(this.projects);
       },
       (error) => {
@@ -55,7 +67,6 @@ export class ProjectComponent implements OnInit{
     this.pagService.pagination(page, size).subscribe(
       (data: ProjetsDto[]) => {
         this.projects = data;
-        this.totalProjects = data.length;
       },
       (error) => {
         console.log('Error fetching paginated projects', error);
