@@ -1,5 +1,12 @@
 # Construction
 
+# Part 1 : Java EE
+https://github.com/THSK4U/ConstructionXpert-
+# Part 2 Microservices
+https://github.com/THSK4U/ConstructionXpert---Microservices
+# Part 3 Angular
+https://github.com/THSK4U/ConstructionXpert-Front
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.14.
 
 ## Development server
